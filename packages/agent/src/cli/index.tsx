@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import React, { useMemo, useState } from "react";
 import { Box, render, Text, useApp, useInput } from "ink";
+import { createDebugServer } from "@mini-swe-agent/debug-kit";
 import { DEFAULT_MODEL } from "../constant";
 import agentLoop, { createAgentState } from "../core/agentLoop";
 
@@ -8,6 +9,26 @@ type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
+const parsePort = (value: string | undefined): number | undefined => {
+  if (!value) {
+    return undefined;
+  }
+
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : undefined;
+};
+
+const debugServer =
+  process.env.MINI_SWE_AGENT_DEBUG === "1"
+    ? await createDebugServer({
+        port: parsePort(process.env.MINI_SWE_AGENT_DEBUG_PORT),
+      })
+    : undefined;
+
+if (debugServer) {
+  console.log(`miniSWEAgent debug trace: ${debugServer.url}`);
+}
 
 const MessageBlock = ({ message }: { message: Message }) => {
   const isUser = message.role === "user";
@@ -54,7 +75,10 @@ const App = () => {
     setIsLoading(true);
 
     try {
-      const aiResponse = await agentLoop(trimmedInput, agentState);
+      const aiResponse = await agentLoop(trimmedInput, agentState, {
+        observer: debugServer?.observer,
+        sessionId: "mini-swe-agent-cli",
+      });
 
       setMessages((prevMessages) => [
         ...prevMessages,

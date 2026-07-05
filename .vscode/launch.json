@@ -4,11 +4,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug CLI (tsx)",
-      "cwd": "${workspaceFolder}",
+      "name": "Debug Agent CLI (tsx)",
+      "cwd": "${workspaceFolder}/packages/agent",
       "runtimeExecutable": "node",
       "runtimeArgs": ["--enable-source-maps", "--import=tsx"],
-      "program": "${workspaceFolder}/src/cli/index.tsx",
+      "program": "${workspaceFolder}/packages/agent/src/cli/index.tsx",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "sourceMaps": true,
@@ -29,11 +29,40 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug CLI (tsx, stop on entry)",
-      "cwd": "${workspaceFolder}",
+      "name": "Debug Agent CLI with Trace",
+      "cwd": "${workspaceFolder}/packages/agent",
       "runtimeExecutable": "node",
       "runtimeArgs": ["--enable-source-maps", "--import=tsx"],
-      "program": "${workspaceFolder}/src/cli/index.tsx",
+      "program": "${workspaceFolder}/packages/agent/src/cli/index.tsx",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "MINI_SWE_AGENT_DEBUG": "1",
+        "MINI_SWE_AGENT_DEBUG_PORT": "5174"
+      },
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "sourceMapPathOverrides": {
+        "file://${workspaceFolder}/*": "${workspaceFolder}/*",
+        "${workspaceFolder}/*": "${workspaceFolder}/*"
+      },
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**"
+      ],
+      "autoAttachChildProcesses": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Agent CLI (stop on entry)",
+      "cwd": "${workspaceFolder}/packages/agent",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--enable-source-maps", "--import=tsx"],
+      "program": "${workspaceFolder}/packages/agent/src/cli/index.tsx",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "stopOnEntry": true,
@@ -55,11 +84,10 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Single File",
+      "name": "Debug Web UI (Vite)",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["--enable-source-maps", "--import=tsx"],
-      "program": "${workspaceFolder}/src/core/skillWrapper.ts",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev:debug-web"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "sourceMaps": true,
@@ -76,6 +104,16 @@
         "${workspaceFolder}/node_modules/**"
       ],
       "autoAttachChildProcesses": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Agent + Web Trace",
+      "configurations": [
+        "Debug Agent CLI with Trace",
+        "Debug Web UI (Vite)"
+      ],
+      "stopAll": true
     }
   ]
 }

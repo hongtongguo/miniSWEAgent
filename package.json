@@ -1,34 +1,26 @@
 {
-  "name": "miniSWEAgent",
+  "name": "mini-swe-agent-workspace",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "type": "module",
-  "main": "dist/cli/index.js",
-  "types": "dist/cli/index.d.ts",
-  "bin": {
-    "mini-swe-agent": "dist/cli/index.js"
-  },
   "scripts": {
-    "build": "tsc && esbuild src/cli/index.tsx --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/cli/index.js && chmod +x dist/cli/index.js",
-    "dev": "tsx src/cli/index.tsx",
-    "start": "node dist/cli/index.js",
-    "typecheck": "tsc --noEmit",
-    "test": "pnpm typecheck"
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter mini-swe-agent dev",
+    "dev:agent": "pnpm --filter mini-swe-agent dev",
+    "dev:debug-web": "pnpm --filter @mini-swe-agent/debug-kit build && pnpm --filter @mini-swe-agent/debug-web dev",
+    "start": "pnpm --filter mini-swe-agent start",
+    "typecheck": "pnpm --filter @mini-swe-agent/debug-kit build && pnpm -r typecheck",
+    "test": "pnpm --filter @mini-swe-agent/debug-kit build && pnpm -r test",
+    "test:watch": "pnpm --filter mini-swe-agent test:watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "packageManager": "pnpm@10.22.0",
   "devDependencies": {
     "@types/node": "^24.0.7",
-    "@types/react": "^19.2.17",
-    "esbuild": "^0.28.1",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
-  },
-  "packageManager": "pnpm@10.22.0",
-  "dependencies": {
-    "ink": "^7.1.0",
-    "openai": "^6.45.0",
-    "react": "^19.2.7"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   }
 }

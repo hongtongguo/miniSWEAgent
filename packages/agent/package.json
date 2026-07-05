@@ -1,0 +1,36 @@
+{
+  "name": "mini-swe-agent",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/cli/index.js",
+  "types": "dist/cli/index.d.ts",
+  "bin": {
+    "mini-swe-agent": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc && esbuild src/cli/index.tsx --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/cli/index.js && chmod +x dist/cli/index.js",
+    "dev": "pnpm --filter @mini-swe-agent/debug-kit build && tsx src/cli/index.tsx",
+    "start": "node dist/cli/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mini-swe-agent/debug-kit": "workspace:*",
+    "ink": "^7.1.0",
+    "openai": "^6.45.0",
+    "react": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.7",
+    "@types/react": "^19.2.17",
+    "esbuild": "^0.28.1",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
