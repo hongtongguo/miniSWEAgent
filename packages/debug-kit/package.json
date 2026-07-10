@@ -12,8 +12,11 @@
     }
   },
   "scripts": {
-    "build": "tsc",
-    "typecheck": "tsc --noEmit",
+    "build": "pnpm run build:runtime && tsc -p tsconfig.web.json && vite build",
+    "build:runtime": "tsc",
+    "dev:web": "vite --host 127.0.0.1",
+    "preview:web": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.web.json",
     "test": "vitest run --passWithNoTests"
   },
   "keywords": [],
@@ -21,7 +24,14 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^24.0.7",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "lucide-react": "^0.561.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "typescript": "^5.8.3",
+    "vite": "^7.3.0",
     "vitest": "^3.2.4"
   }
 }

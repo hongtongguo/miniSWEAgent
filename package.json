@@ -8,10 +8,10 @@
     "build": "pnpm -r build",
     "dev": "pnpm --filter mini-swe-agent dev",
     "dev:agent": "pnpm --filter mini-swe-agent dev",
-    "dev:debug-web": "pnpm --filter @mini-swe-agent/debug-kit build && pnpm --filter @mini-swe-agent/debug-web dev",
+    "dev:debug": "pnpm --filter @mini-swe-agent/debug-kit dev:web",
     "start": "pnpm --filter mini-swe-agent start",
-    "typecheck": "pnpm --filter @mini-swe-agent/debug-kit build && pnpm -r typecheck",
-    "test": "pnpm --filter @mini-swe-agent/debug-kit build && pnpm -r test",
+    "typecheck": "pnpm --filter @mini-swe-agent/debug-kit build:runtime && pnpm -r typecheck",
+    "test": "pnpm --filter @mini-swe-agent/debug-kit build:runtime && pnpm -r test",
     "test:watch": "pnpm --filter mini-swe-agent test:watch"
   },
   "keywords": [],

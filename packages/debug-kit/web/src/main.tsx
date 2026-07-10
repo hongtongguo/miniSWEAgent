@@ -10,7 +10,7 @@ import {
   Send,
   Wrench,
 } from "lucide-react";
-import type { AgentTraceEvent, AgentTraceSnapshot } from "@mini-swe-agent/debug-kit";
+import type { AgentTraceEvent, AgentTraceSnapshot } from "../../src";
 import "./styles.css";
 
 type ConnectionState = "connecting" | "connected" | "disconnected" | "error";

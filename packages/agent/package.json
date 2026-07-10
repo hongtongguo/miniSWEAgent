@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "tsc && esbuild src/cli/index.tsx --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/cli/index.js && chmod +x dist/cli/index.js",
-    "dev": "pnpm --filter @mini-swe-agent/debug-kit build && tsx src/cli/index.tsx",
+    "dev": "pnpm --filter @mini-swe-agent/debug-kit build:runtime && tsx src/cli/index.tsx",
     "start": "node dist/cli/index.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
